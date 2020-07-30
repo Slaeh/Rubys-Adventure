@@ -7,11 +7,13 @@ public class ControlRuby : MonoBehaviour
     Rigidbody2D rigidbody2d;
     float horizontal; 
     float vertical;
+    public int maxHealth = 5, currentHealth; 
     
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -28,5 +30,10 @@ public class ControlRuby : MonoBehaviour
         position.y = position.y + 3.0f * vertical * Time.deltaTime;
 
         rigidbody2d.MovePosition(position);
+    }
+
+    void changeHealth(int amount){
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        Debug.Log(currentHealth + "/" + maxHealth);
     }
 }
