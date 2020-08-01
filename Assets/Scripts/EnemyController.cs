@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float speed = 3.0f;
+    public float speed;
     public float changeTime = 3.0f;
     Rigidbody2D rigidbody2D;
     float timer;
@@ -14,10 +14,21 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        timer = changeTime;
+    }
+
+    void Update(){
+        timer -= Time.deltaTime;
+
+        if (timer < 0)
+        {
+            direction = -direction;
+            timer = changeTime;
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Vector2 position = rigidbody2D.position;
         if(vertical){
@@ -28,4 +39,14 @@ public class EnemyController : MonoBehaviour
         rigidbody2D.MovePosition(position);
         
     }
+
+    void OnCollisionEnter2D(Collision2D other)
+{
+    ControlRuby player = other.gameObject.GetComponent<ControlRuby>();
+
+    if (player != null)
+    {
+        player.ChangeHealth(-1);
+    }
+}
 }
