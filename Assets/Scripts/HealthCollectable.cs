@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class HealthCollectable : MonoBehaviour
 {
-    void onTriggerEnter2D(Collider2D other){
+    void OnTriggerEnter2D(Collider2D other)
+    {
         ControlRuby controller = other.GetComponent<ControlRuby>();
 
-        if(controller != null){
-            if(controller.health < controller.maxHealth){
-            controller.changeHealth(1);
-            Destroy(gameObject);
+        if (controller != null)
+        {
+            if(controller.health  < controller.maxHealth)
+            {
+                controller.ChangeHealth(1);
+                Destroy(gameObject);
             }
         }
     }
